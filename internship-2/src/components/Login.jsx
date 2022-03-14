@@ -1,7 +1,6 @@
 import "../scss/Login.css";
 import { useRef } from "react";
 import axios from "axios";
-import {NavLink} from 'react-router-dom';
 
 function Login({ change }) {
   const email = useRef();

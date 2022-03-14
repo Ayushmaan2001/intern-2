@@ -18,7 +18,6 @@ function App() {
         <Route path="/signup" element={<SignUp change={change}/>}></Route>
         <Route path="/forgetpassword" element={<ForgetPassword change={change} setEmail={setEmail}/>} />
         <Route path="/newpassword" element={<Newpassword change={change} Email={Email}/>}></Route>
-        {/* <Route ></Route> */}
       </Routes>
     </>
   );
