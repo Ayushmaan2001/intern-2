@@ -1,4 +1,4 @@
-import "../scss/Login.scss";
+import "../scss/Login.css";
 import { useRef } from "react";
 import axios from "axios";
 import {NavLink} from 'react-router-dom';
@@ -24,7 +24,7 @@ function Login({ change }) {
         }
       })
       .catch((err) => {
-        console.log("Not Found");
+        alert('Not Found');
       });
   };
 
@@ -59,9 +59,9 @@ function Login({ change }) {
           />
         </div>
         <label className="form-check-label mb-2" htmlFor="exampleCheck1">
-          <NavLink to='/forgetpassword'>
+          <a href='/forgetpassword'>
             Forget Password
-          </NavLink>
+          </a>
         </label>
         <button type="submit" className="btn btn-primary" onClick={Login}>
           Login

@@ -1,12 +1,14 @@
-import "../scss/Signup.scss";
+import "../scss/Signup.css";
 import axios from "axios";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignUp({ change }) {
   const first = useRef();
   const last = useRef();
   const pass = useRef();
   const email = useRef();
+  const navigate = useNavigate();
 
   const Register = () => {
     axios
@@ -17,7 +19,10 @@ function SignUp({ change }) {
         last_name: last.current.value,
       })
       .then((res) => {
-        console.log(res.data)
+        alert("Successfully Register now you can login");
+        navigate('/')
+      }).catch((err) => {
+        alert("Try Again");
       })
 
   };

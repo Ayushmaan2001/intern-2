@@ -1,4 +1,4 @@
-import '../scss/App.scss';
+import '../scss/App.css';
 import {useState} from 'react';
 import Navbar from './Navbar';
 import SignUp from './Signup';

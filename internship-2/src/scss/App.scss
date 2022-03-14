@@ -1,4 +1,6 @@
-$sample:red;
-h1{
-    color:$sample;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,200&display=swap');
+
+html{
+    font-family: 'Nunito', sans-serif;
+    text-decoration: none;
 }

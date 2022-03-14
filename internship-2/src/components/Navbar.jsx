@@ -1,4 +1,4 @@
-import "../scss/Navbar.scss";
+import "../scss/Navbar.css";
 import {NavLink} from 'react-router-dom'
 function Navbar() {
   return (
