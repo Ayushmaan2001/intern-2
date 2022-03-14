@@ -1,9 +1,28 @@
 import "../scss/forgetPassword.scss";
+import {useNavigate} from 'react-router-dom';
+import {useRef} from 'react';
+import axios from "axios";
 
-function ForgetPassword() {
+function ForgetPassword({change,setEmail}) {
+  const email = useRef()
+  const navigate = useNavigate();
+  
+  const forget = () => {
+    axios.post("http://localhost:5000/email",{
+      email:email.current.value
+    }).then((result) => {
+      if(result.data[0].Email_Address === email.current.value)
+      {
+        setEmail(email.current.value);
+      navigate('/newpassword')
+      }
+    }).catch((err) => {
+      alert('Email not found')
+    });
+  }
   return (
     <>
-      <form>
+      <form onSubmit={(e) => {change(e)}}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
@@ -13,20 +32,11 @@ function ForgetPassword() {
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            ref={email}
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Reset Password
+        <button type="submit" className="btn btn-primary" onClick={forget}>
+          Next
         </button>
       </form>
     </>

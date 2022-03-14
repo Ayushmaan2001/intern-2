@@ -37,7 +37,7 @@ app.post("/login", (req, res) => {
     [email, pass],
     (err, result) => {
       if (err) {
-        res.send({err});
+        res.send({ err });
       }
       if (result) {
         res.send(result);
@@ -49,42 +49,61 @@ app.post("/login", (req, res) => {
 });
 
 //Registration Api
-app.post('/register',(req,res) => {
-    const email = req.body.email;
-    const pass = req.body.password;
-    const first = req.body.first_name;
-    const last = req.body.last_name;
-    con.query(
-      "INSERT INTO users.user (Email_Address,Password,First_name,Last_Name) VALUES (?,?,?,?)",
-      [email,pass,first,last],
-      (error,result) => {
-        if(error)
-        {
-          res.send({error});
-        }
-        if(result)
-        {
-          res.send(result);
-        }
-        else{
-          res.send('try again')
-        }
+app.post("/register", (req, res) => {
+  const email = req.body.email;
+  const pass = req.body.password;
+  const first = req.body.first_name;
+  const last = req.body.last_name;
+  con.query(
+    "INSERT INTO users.user (Email_Address,Password,First_name,Last_Name) VALUES (?,?,?,?)",
+    [email, pass, first, last],
+    (error, result) => {
+      if (error) {
+        res.send({ error });
       }
-    );
-})
+      if (result) {
+        res.send(result);
+      } else {
+        res.send("try again");
+      }
+    }
+  );
+});
 
 //Forget Password Api
-app.post('/forgetpassword',(req,res) => {
-    const body = req.body;
-    con.query('UPDATE users.user SET Password = ? WHERE Email_Address = ? ',[body.password,body.email],(err,result) => {
-        if(err){
-            res.send(err);
-        }
-        if(result){
-            res.send("Password Successfully Changed");
-        }
-        else{
-            res.send("Email Not Found");
-        }
-    })
-})
+app.post("/forgetpassword", (req, res) => {
+  const body = req.body;
+  con.query(
+    "UPDATE users.user SET Password = ? WHERE Email_Address = ? ",
+    [body.pass, body.email],
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      }
+      if (result) {
+        res.send("Password Successfully Changed, Now you can login");
+      } else {
+        res.send("Email Not Found");
+      }
+    }
+  );
+});
+
+//Forget Password Email
+app.post("/email", (req, res) => {
+  const email = req.body.email;
+  con.query(
+    "SELECT * FROM users.user WHERE Email_Address = ?"
+  ,
+    [email],
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      }
+      if (result) {
+        res.send(result);
+      } else {
+        res.send("Not Found");
+      }
+    });
+});
