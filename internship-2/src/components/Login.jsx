@@ -1,7 +1,40 @@
-function Login() {
+import "../scss/Login.scss";
+import { useRef } from "react";
+import axios from "axios";
+import {NavLink} from 'react-router-dom';
+
+function Login({ change }) {
+  const email = useRef();
+  const password = useRef();
+
+  const Login = () => {
+    axios
+      .post("http://localhost:5000/login", {
+        email: email.current.value,
+        password: password.current.value,
+      })
+      .then((res) => {
+        if (
+          res.data[0].Email_Address === email.current.value &&
+          res.data[0].Password === password.current.value
+        ) {
+          alert("Success");
+        } else {
+          alert(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log("Not Found");
+      });
+  };
+
   return (
     <>
-      <form>
+      <form
+        onSubmit={(event) => {
+          change(event);
+        }}
+      >
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
@@ -11,10 +44,8 @@ function Login() {
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            ref={email}
           />
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">
@@ -24,19 +55,15 @@ function Login() {
             type="password"
             className="form-control"
             id="exampleInputPassword1"
+            ref={password}
           />
         </div>
-        <div className="mb-3 form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
-          <label className="form-check-label" htmlFor="exampleCheck1">
-            Check me out
-          </label>
-        </div>
-        <button type="submit" className="btn btn-primary">
+        <label className="form-check-label mb-2" htmlFor="exampleCheck1">
+          <NavLink to='/forgetpassword'>
+            Forget Password
+          </NavLink>
+        </label>
+        <button type="submit" className="btn btn-primary" onClick={Login}>
           Login
         </button>
       </form>

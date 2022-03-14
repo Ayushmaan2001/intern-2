@@ -6,12 +6,13 @@ import Login from './Login';
 import {Routes,Route} from 'react-router-dom';
 
 function App() {
+  function change(e){e.preventDefault();}
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Login />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/" element={<Login change={change}/>}></Route>
+        <Route path="/signup" element={<SignUp change={change}/>}></Route>
         <Route path="/forgetpassword" element={<ForgetPassword />} />
       </Routes>
     </>
